@@ -26,6 +26,20 @@ function searchAddressHandler(event: Event) {
         throw new Error("座標を取得できませんでした。");
       }
       const coordinates = response.data.results[0].geometry.location;
+      // マップのインスタンス
+      const map = new google.maps.Map(
+        document.getElementById("map")! as HTMLElement,
+        {
+          center: coordinates,
+          zoom: 16,
+        }
+      );
+
+      // The marker, positioned at coordinates
+      new google.maps.Marker({
+        position: coordinates,
+        map: map,
+      });
     })
     .catch((err) => {
       alert(err.message);
